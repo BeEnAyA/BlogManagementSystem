@@ -27,10 +27,10 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.user = require("./user.js")(sequelize, DataTypes)
-db.blog=require("./blog")(sequelize,DataTypes)
+db.users = require("./user.js")(sequelize, DataTypes)
+db.blogs=require("./blog")(sequelize,DataTypes)
 
-// (db.user).hasMany(db.blog)
-// (db.blog).
+db.users.hasMany(db.blogs)
+db.blogs.belongsTo(db.users)
 
 module.exports = db;

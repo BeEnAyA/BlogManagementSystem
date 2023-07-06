@@ -4,47 +4,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://kit.fontawesome.com/2d2642681e.js" crossorigin="anonymous"></script>
+
 <body>
 
     <!-- Navbar Start -->
-    <div class="w3-bar w3-padding w3-amber">
-        <a href="/" class="w3-bar-item w3-button w3-black w3-round"><i class="fa-solid fa-home"></i> Home</a>
-        <a href="/register" class="w3-bar-item w3-button "><i class="fa-solid fa-user-plus"></i> Register</a>
-        <a href="/login" class="w3-bar-item w3-button"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+    <div class="w3-bar w3-padding w3-amber" style="position: fixed;">
+        <a href="/blog" class="w3-bar-item w3-button w3-black w3-round"><i class="fa-solid fa-blog"></i> Blogs</a>
+        <a href="/myBlogs" class="w3-bar-item w3-button w3-round"><i class="fa-solid fa-hand"></i> myBlogs</a>
+        <a href="/create" class="w3-bar-item w3-button w3-round"><i class="fa-solid fa-circle-plus"></i> Add Blog</a>
+        <!-- <a href="#" onclick=""><img src= style="width:60px; height:60px; border:1px solid rgb(250, 247, 247);border-radius:100%;" class="w3-right"></a> -->
+        <a href="/logout" class="w3-bar-item w3-button w3-round w3-red w3-right"><i
+                class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </div>
-        <!-- Navbar Ends -->
-
-
-        <!-- Registration form start -->
-        <div class="w3-container w3-border">
-            <div class="w3-modal-content w3-animate-zoom w3-container">
-                
-                <div class="w3-row-padding w3-margin-bottom">
-                    <!-- This represents each notes -->
-                      <div class="w3-col s4 l3 w3-margin-top">
-                        <div class="w3-card w3-white w3-round">
-                          <div class="w3-container">
-                            <div class="w3-container w3-center w3-padding-8">
-                              <p style="font-size: 20px; font-weight: bold">
-                                Title here
-                              </p>
-                            </div>
-                            <div class="w3-container w3-center w3-padding w3-border-top" style="height: 200px">
-                              The is the description of the blog that will be feteched from database.
-                            </div>
-              
-                            <div class="w3-row-padding w3-border-top w3-padding-8">
-                              <a href="" class="w3-button w3-left w3-xlarge"><i
-                                  class="fa-solid fa-pen-to-square" style="color: #049175f7"></i></a>
-                              <a href="" class="w3-button w3-right w3-xlarge"><i class="fa-solid fa-trash"
-                                  style="color: #b90707"></i></a>
-                            </div>
-                          </div>
+   
+            <div class="w3-container">
+                <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px">
+                    <% if (message) { %>
+                        <div class="w3-panel w3-pale-green w3-display-container">
+                            <span onclick="this.parentElement.style.display='none'"
+                                class="w3-button w3-large w3-display-topright">&times;</span>
+                            <p>
+                                <%= message %>
+                            </p>
                         </div>
-                      </div>
-                  </div>
+                        <% } %>
+                    <% blogs.forEach(blog => { %>
+                    <div class="w3-col s4 l4 w3-margin-top">
+                        <div class="w3-card w3-white w3-round w3-animate-zoom">
+                            <div class="w3-container">
+                                <div class="w3-container w3-center w3-padding-8">
+                                    <p style="font-size: 20px; font-weight: bold">
+                                        <%=blog.title %>
+                                    </p>
+                                </div>
+                                <div class="w3-container w3-center w3-padding w3-border-top"
+                                    style="height: 400px;overflow-y:scroll;">
+                                    <img src=<%=blog.image %>
+                                        style="width:50%;height:fit-content;">
+                                    <p> <%= blog.description %></p>
 
+                                </div>
+
+                                <div class="w3-container w3-border-top w3-padding-8">
+                                    <h6 class="w3-text-grey w3-left">Created At: <%=blog.createdAt %></h6>
+                                </div>
+                                <!-- <div class="w3-container w3-padding" style="width: fit-content;">
+                                    <a href=""><i class="fa-solid fa-eye"
+                                        style="color: #031ea4"></i> See more...</a>
+                                </div>        -->
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
             </div>
-        </div>
+
+
+
 </body>
+
 </html>
