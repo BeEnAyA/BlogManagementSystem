@@ -22,8 +22,7 @@ exports.isAuthenticated=async (req,res,next)=>{
         if(req.session.flashMessage){
             res.locals.flashMessage=req.session.flashMessage
             req.session.flashMessage=null
-        }
-        
+        }    
         next();
     }
 }

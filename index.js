@@ -52,3 +52,6 @@ app.post('/create',authController.isAuthenticated, blogUpload.single('image'),bl
 app.get('/logout', controller.makeLogout)
 
 app.get('/myBlogs',authController.isAuthenticated,blogController.renderMyBlogs)
+app.get('/editBlog/:id',authController.isAuthenticated,blogController.renderEditBlog)
+app.post('/updateBlog/:id',authController.isAuthenticated,upload.single('image'),blogController.updateBlog)
+app.get('/deleteBlog/:id',authController.isAuthenticated,blogController.deleteBlog)
