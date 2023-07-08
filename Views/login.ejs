@@ -12,9 +12,10 @@
         <a href="/login" class="w3-bar-item w3-button w3-black w3-round"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
     </div>
         <!-- Navbar Ends -->
-
-        <div class="w3-container" style="margin-top: 50px">
-            <div class="w3-modal-content w3-animate-zoom w3-card-4 w3-padding w3-round" style="width: 40%">
+   
+        <div class="w3-container" >
+            <%-include('partials/flashMsg')%>
+            <div class="w3-modal-content w3-animate-zoom w3-card-4 w3-padding w3-round" style="width: 40%; margin-top: 80px"">
                 <header class="w3-container w3-border-bottom w3-border-amber w3-center">
                     <h2>Login</h2>
                 </header>
@@ -62,6 +63,7 @@
                 }
             }
         </script>
+
 
 </body>
 </html>

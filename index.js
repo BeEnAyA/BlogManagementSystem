@@ -13,19 +13,17 @@ db.sequelize.sync({ force: false })
 app.set("view engine", "ejs")
 app.use(require("cookie-parser")());
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname,'Uploads/Blogs')));
 app.use(express.static(path.join(__dirname,'Uploads/Users')));
 
 app.use(session({
   secret : 'mySession',
-  cookie: { maxAge: 60000 },
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false,
 }));
+
 app.use(flash());
-
-
 const{storage,blogStorage,multer}=require('./Services/multerConfig')
 
 const upload=multer({storage:storage})
@@ -37,7 +35,6 @@ dotenv.config()
 app.listen(process.env.PORT, () => {
   console.log("Node server started at port=localhost:4500");
 })
-
 
 app.get("/", controller.renderLogin)
 app.get("/blog",authController.isAuthenticated, controller.renderHome)
@@ -55,3 +52,5 @@ app.get('/myBlogs',authController.isAuthenticated,blogController.renderMyBlogs)
 app.get('/editBlog/:id',authController.isAuthenticated,blogController.renderEditBlog)
 app.post('/updateBlog/:id',authController.isAuthenticated,upload.single('image'),blogController.updateBlog)
 app.get('/deleteBlog/:id',authController.isAuthenticated,blogController.deleteBlog)
+
+app.get('/myBlogs/single/:id',authController.isAuthenticated,blogController.renderMySingleBlog)

@@ -5,14 +5,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://kit.fontawesome.com/2d2642681e.js" crossorigin="anonymous"></script>
 <body>
-
-    <!-- Navbar Start -->
-    <!-- <div class="w3-bar w3-padding w3-amber">
-        <a href="/register" class="w3-bar-item w3-button" ><i class="fa-solid fa-user-plus"></i> Register</a>
-        <a href="/login" class="w3-bar-item w3-button w3-black w3-round"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-    </div> -->
-        <!-- Navbar Ends -->
-
+    <%- include('partials/navbar') %>
         <div class="w3-container" style="margin-top: 50px">
             <div class="w3-modal-content w3-animate-zoom w3-card-4 w3-padding w3-round" style="width: 40%">
                 <header class="w3-container w3-border-bottom w3-border-amber w3-center">
@@ -28,7 +21,7 @@
     
                         <div class="w3-container w3-padding">
                             <label><i class="fa-solid fa-pen"></i> Description</label>
-                            <textarea class="w3-input" rows="5" name="description" required></textarea>
+                            <textarea class="w3-input" name="description" style="height: 200px;" required></textarea>
                         </div>
 
                         <div class="w3-container w3-padding">

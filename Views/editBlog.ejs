@@ -13,12 +13,12 @@
     </div> -->
         <!-- Navbar Ends -->
 
-        <div class="w3-container" style="margin-top: 50px">
-            <div class="w3-modal-content w3-animate-zoom w3-card-4 w3-padding w3-round" style="width: 40%">
+        <div class="w3-container w3-padding-32" style="margin-top: 50px">
+            <div class="w3-modal-content w3-animate-zoom w3-card-4 w3-padding w3-round" style="width: 60%">
                 <header class="w3-container w3-border-bottom w3-border-amber w3-center">
                     <h2>Edit Blog</h2>
                 </header>
-                <div class="w3-container w3-padding">
+                <div class="w3-container ">
                     <form action="/updateBlog/<%= blog.id %>" method="POST" enctype="multipart/form-data">
                         <div class="w3-container w3-padding">
                             <label><i class="fa-solid fa-heading"></i> Title</label>
@@ -28,12 +28,12 @@
     
                         <div class="w3-container w3-padding">
                             <label><i class="fa-solid fa-pen"></i> Description</label>
-                            <textarea class="w3-input" rows="5" name="description" required><%= blog.description %></textarea>
+                            <textarea class="w3-input" name="description" style="height:200px;" required><%= blog.description %></textarea>
                         </div>
 
                         <div class="w3-container w3-padding">
                             <label><i class="fa-solid fa-image"></i> Image</label>
-                            <input class="w3-input" type="file" name="image" onchange=preview() required />
+                            <input class="w3-input" type="file" name="image" onchange=preview()/>
                             <div class="image-preview" style="width: 40%; padding: 5px;">
                                 <img src="<%=blog.image%>" id="frame" alt="No preview" style="max-width:100%">
                               </div>
@@ -58,3 +58,6 @@
 
 </body>
 </html>
+
+
+

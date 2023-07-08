@@ -6,6 +6,7 @@ const { users } = require("../Model/dbConnection")
 exports.isAuthenticated=async (req,res,next)=>{
     const token=req.cookies.token
     if(!token){
+        req.flash('failure','Authentication failed! Please do login first')
         res.redirect('/')
         return
     }
@@ -18,11 +19,6 @@ exports.isAuthenticated=async (req,res,next)=>{
         res.render('/',)
     }else{
         req.user=loggedInUser
-
-        if(req.session.flashMessage){
-            res.locals.flashMessage=req.session.flashMessage
-            req.session.flashMessage=null
-        }    
         next();
     }
 }

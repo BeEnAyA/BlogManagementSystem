@@ -3,7 +3,7 @@ const Blog=db.blogs
 
 
 exports.renderCreateBlog=(req,res)=>{
-    res.render('createBlog')
+    res.render('createBlog',{activePage:'createBlogs'})
 }
 
 exports.createBlog=async (req,res)=>{
@@ -25,7 +25,7 @@ exports.renderMyBlogs=async (req,res)=>{
         userId:req.user.id
     }})
 
-    res.render('myBlog',{myBlogs:myBlogs})
+    res.render('myBlog',{myBlogs:myBlogs,activePage:'myBlogs'})
 }
 
 exports.renderEditBlog=async (req,res)=>{
@@ -61,4 +61,13 @@ exports.deleteBlog= async (req,res)=>{
     })
 
     res.redirect('/myBlogs')
+}
+
+exports.renderMySingleBlog= async (req,res)=>{
+    const myBlog= await Blog.findOne({
+        where:{
+            id:req.params.id,
+        }
+    })
+    res.render('myBlog-single',{myBlog:myBlog})
 }

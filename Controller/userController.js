@@ -6,10 +6,9 @@ const User=db.users
 const Blog=db.blogs
 
 exports.renderHome=async (req,res)=>{
-    const message=res.locals.flashMessage
-
+    const message=req.flash()
     const allBLogs=await Blog.findAll()
-    res.render('home',{message,blogs:allBLogs})
+    res.render('home',{msg:message,blogs:allBLogs,activePage:'blogs'})
 
     
 }
@@ -19,7 +18,8 @@ exports.renderRegistration=async (req,res)=>{
 }
 
 exports.renderLogin=async (req,res)=>{
-    res.render('login')
+    const message=req.flash()
+    res.render('login',{msg:message})
 }
 
 exports.makeRegistration=async (req,res)=>{
@@ -35,12 +35,10 @@ exports.makeRegistration=async (req,res)=>{
         image:"http://localhost:4500/"+req.file.filename,
     }
 
-    console.log(user)
-
     const userCreated=await User.create(user)
 
     if(userCreated.length!=0){
-        console.log("User created successfully")
+        
         
         try {
             const options ={
@@ -56,7 +54,6 @@ exports.makeRegistration=async (req,res)=>{
           }
     }
     else{
-        console.log("User creation failed.")
         res.redirect('/register')
     }
 }
@@ -78,7 +75,7 @@ exports.makeLogin= async (req,res)=>{
        var token=jwt.sign({id:foundUser[0].id},process.env.SECRET_KEY,{expiresIn:86400,}) 
        console.log("token:",token)
        res.cookie('token',token)
-       req.session.flashMessage="Hello "+foundUser[0].fullname+", You have successfully logged in !"
+       req.flash("success","Welcome "+foundUser[0].fullname)
        res.redirect('/blog')
        }
        else{
@@ -145,5 +142,6 @@ exports.resetPassword=async (req,res)=>{
 
 exports.makeLogout=(req,res,)=>{
     res.clearCookie('token')
+    req.flash('success','Logged out successfully!')
     res.redirect('/')
 }

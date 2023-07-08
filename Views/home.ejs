@@ -8,26 +8,18 @@
 <body>
 
     <!-- Navbar Start -->
-    <div class="w3-bar w3-padding w3-amber" style="position: fixed; z-index:1;">
+    <!-- <div class="w3-bar w3-padding w3-amber">
         <a href="/blog" class="w3-bar-item w3-button w3-black w3-round"><i class="fa-solid fa-blog"></i> Blogs</a>
         <a href="/myBlogs" class="w3-bar-item w3-button w3-round"><i class="fa-solid fa-hand"></i> myBlogs</a>
         <a href="/create" class="w3-bar-item w3-button w3-round"><i class="fa-solid fa-circle-plus"></i> Add Blog</a>
-        <!-- <a href="#" onclick=""><img src= style="width:60px; height:60px; border:1px solid rgb(250, 247, 247);border-radius:100%;" class="w3-right"></a> -->
-        <a href="/logout" class="w3-bar-item w3-button w3-round w3-red w3-right"><i
-                class="fa-solid fa-right-from-bracket"></i> Logout</a>
-    </div>
-   
+        <a href="#" onclick=""><img src= style="width:60px; height:60px; border:1px solid rgb(250, 247, 247);border-radius:100%;" class="w3-right"></a> -->
+        <!-- <a href="/logout" class="w3-bar-item w3-button w3-round w3-red w3-right"><i
+                class="fa-solid fa-right-from-bracket"></i> Logout</a> -->
+    <!-- </div> -->
+    <%- include('partials/navbar') %>
             <div class="w3-container">
+               <%-include('partials/flashMsg')  %>
                 <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px">
-                    <% if (message) { %>
-                        <div class="w3-panel w3-pale-green w3-display-container">
-                            <span onclick="this.parentElement.style.display='none'"
-                                class="w3-button w3-large w3-display-topright">&times;</span>
-                            <p>
-                                <%= message %>
-                            </p>
-                        </div>
-                        <% } %>
                     <% blogs.forEach(blog => { %>
                     <div class="w3-col s4 l4 w3-margin-top">
                         <div class="w3-card w3-white w3-round w3-animate-zoom">
@@ -64,3 +56,5 @@
 </body>
 
 </html>
+
+

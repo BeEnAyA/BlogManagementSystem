@@ -6,20 +6,11 @@
 <script src="https://kit.fontawesome.com/2d2642681e.js" crossorigin="anonymous"></script>
 
 <body>
-
-    <!-- Navbar Start -->
-    <div class="w3-bar w3-padding w3-amber" style="position: fixed;">
-        <a href="/blog" class="w3-bar-item w3-button w3-round"><i class="fa-solid fa-blog"></i> Blogs</a>
-        <a href="/myBlogs" class="w3-bar-item w3-button w3-black w3-round"><i class="fa-solid fa-hand"></i> myBlogs</a>
-        <a href="/create" class="w3-bar-item w3-button w3-round"><i class="fa-solid fa-circle-plus"></i> Add Blog</a>
-        <!-- <a href="#" onclick=""><img src= style="width:60px; height:60px; border:1px solid rgb(250, 247, 247);border-radius:100%;" class="w3-right"></a> -->
-        <a href="/logout" class="w3-bar-item w3-button w3-round w3-red w3-right"><i
-                class="fa-solid fa-right-from-bracket"></i> Logout</a>
-    </div>
-   
+      <%- include('partials/navbar')%>
             <div class="w3-container">
                 <div class="w3-row-padding w3-margin-bottom" style="margin-top: 50px;">
                     <% myBlogs.forEach(blog => { %>
+                    <a href="/myBlogs/single/<%= blog.id %>" style="text-decoration: none;">
                       <div class="w3-col s4 l4 w3-margin-top w3-animate-zoom">
                         <div class="w3-card w3-white w3-round">
                           <div class="w3-container">
@@ -44,6 +35,7 @@
                           </div>
                         </div>
                       </div>
+                    </a>
                       <% }) %>
                   </div>
             </div>
@@ -53,3 +45,5 @@
 </body>
 
 </html>
+
+
