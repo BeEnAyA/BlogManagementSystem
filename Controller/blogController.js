@@ -22,7 +22,7 @@ exports.createBlog=async (req,res)=>{
 
 exports.renderMyBlogs=async (req,res)=>{
     const myBlogs=await Blog.findAll({where:{
-        userId:req.user.id
+        userId:req.user.id,
     }})
 
     res.render('myBlog',{myBlogs:myBlogs,activePage:'myBlogs'})
@@ -69,5 +69,5 @@ exports.renderMySingleBlog= async (req,res)=>{
             id:req.params.id,
         }
     })
-    res.render('myBlog-single',{myBlog:myBlog})
+    res.render('myBlog-single',{activePage:'myBlogs',myBlog:myBlog})
 }

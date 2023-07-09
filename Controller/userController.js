@@ -2,15 +2,18 @@ const bcrypt = require('bcrypt')
 const db = require('../Model/dbConnection')
 const sendEmail = require('../Services/emailConfig')
 const jwt=require("jsonwebtoken")
+const { QueryTypes } = require('sequelize')
 const User=db.users
 const Blog=db.blogs
 
 exports.renderHome=async (req,res)=>{
     const message=req.flash()
-    const allBLogs=await Blog.findAll()
-    res.render('home',{msg:message,blogs:allBLogs,activePage:'blogs'})
+    const allBLogs=await db.sequelize.query('SELECT * FROM blogs JOIN users ON blogs.userId=users.id',{
+        type:QueryTypes.SELECT,
+    })
 
-    
+    res.render('home',{msg:message,blogs:allBLogs,activePage:'blogs'})
+  
 }
 
 exports.renderRegistration=async (req,res)=>{
