@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://kit.fontawesome.com/2d2642681e.js" crossorigin="anonymous"></script>
+<body>
+    <div class="w3-container w3-margin">
+        <div class="w3-container w3-white w3-round w3-animate-zoom w3-border w3-border-amber" style="width: 80%; margin:auto">
+            <div class="w3-container">
+                <div class="w3-container w3-center">
+                    <label style="font-size: 20px; font-weight: bold">
+                        <%=blog.title %>
+                    </label>
+                </div>
+                <div class="w3-container w3-padding w3-center w3-border-bottom"
+                    style="height: 270px;">
+                    <img src=<%=blog.image %> style="height:250px;">
+                </div>
+                <div class="w3-container" style="overflow-y:hidden;">
+                    <p>
+                        <%= blog.description %>
+                    </p>
+                </div>
+
+                <div class="w3-container w3-border-top w3-padding">
+                    <label class="w3-text-grey w3-small">Created At:
+                        <%=moment(blog.createdAt).format('MMMM Do YYYY, dddd') %>
+                    </label><br>
+                    <label class="w3-text-grey w3-small">Posted By:
+                        <%=blog.fullname%>
+                    </label>
+
+                    <!-- <a href="/comments/"
+                        class="w3-right w3-text-amber" style="text-decoration:none;">Comments <i
+                            class="fa-solid fa-comments w3-large"></i></a> -->
+                </div>
+            </div>
+            <div class="w3-container w3-center w3-border-top w3-border-amber">
+                <h2 class="w3-xlarge"><i
+                    class="fa-solid fa-comments w3-large"></i> Comments</h2>
+            </div>
+            <div class="w3-container"
+            style="display:flex;flex-direction:row;gap:10px;padding:10px;">
+            <form action="/createComment" method="post"></form>
+            <input class="w3-input w3-border w3-border-black w3-round w3-hover-border-green" type="text"
+                name="comment" placeholder="Write comment here...">
+            <button class="w3-button w3-amber w3-round w3-hover w3-hover-black">Ok</button>
+        </form>
+        </div>
+        <div class="w3-container" style="display:flex;flex-direction:column; gap:5px;">
+
+
+            <!-- for each loop start -->
+            <div class="w3-container w3-border-bottom "
+                style="display: flex; flex-direction:column;padding:5px;">
+                <div class="w3-container" style="display: flex;flex-direction:row; gap:10px">
+                    <div class="image" style="width: 10%;"><img src="" alt="image"
+                            style="height: 10px; width:10px;"></div>
+                    <div class="name"><span style="font-weight: bold;">John Smith</span> <span
+                            class="w3-small w3-text-grey">Last Sunday</span></div>
+                </div>
+                <div class="w3-container " style="display: flex;flex-direction:row; gap:10px">
+                    <div class="image" style="width: 10%;"></div>
+                    <div class="">The comment of the John Smith here</div>
+                </div>      
+            </div>
+             <!-- for each loop end -->
+
+              <!-- for each loop start -->
+            <div class="w3-container w3-border-bottom "
+            style="display: flex; flex-direction:column;padding:5px;">
+            <div class="w3-container" style="display: flex;flex-direction:row; gap:10px">
+                <div class="image" style="width: 10%;"><img src="" alt="image"
+                        style="height: 10px; width:10px;"></div>
+                <div class="name"><span style="font-weight: bold;">John Smith</span> <span
+                        class="w3-small w3-text-grey">Last Sunday</span></div>
+            </div>
+            <div class="w3-container " style="display: flex;flex-direction:row; gap:10px">
+                <div class="image" style="width: 10%;"></div>
+                <div class="">The comment of the John Smith here</div>
+            </div>      
+        </div>
+         <!-- for each loop end -->
+
+          <!-- for each loop start -->
+          <div class="w3-container w3-border-bottom "
+          style="display: flex; flex-direction:column;padding:5px;">
+          <div class="w3-container" style="display: flex;flex-direction:row; gap:10px">
+              <div class="image" style="width: 10%;"><img src="" alt="image"
+                      style="height: 10px; width:10px;"></div>
+              <div class="name"><span style="font-weight: bold;">John Smith</span> <span
+                      class="w3-small w3-text-grey">Last Sunday</span></div>
+          </div>
+          <div class="w3-container " style="display: flex;flex-direction:row; gap:10px">
+              <div class="image" style="width: 10%;"></div>
+              <div class="">The comment of the John Smith here</div>
+          </div>      
+      </div>
+       <!-- for each loop end -->
+
+        <!-- for each loop start -->
+        <div class="w3-container w3-border-bottom "
+        style="display: flex; flex-direction:column;padding:5px;">
+        <div class="w3-container" style="display: flex;flex-direction:row; gap:10px">
+            <div class="image" style="width: 10%;"><img src="" alt="image"
+                    style="height: 10px; width:10px;"></div>
+            <div class="name"><span style="font-weight: bold;">John Smith</span> <span
+                    class="w3-small w3-text-grey">Last Sunday</span></div>
+        </div>
+        <div class="w3-container " style="display: flex;flex-direction:row; gap:10px">
+            <div class="image" style="width: 10%;"></div>
+            <div class="">The comment of the John Smith here</div>
+        </div>      
+    </div>
+     <!-- for each loop end -->
+
+      <!-- for each loop start -->
+      <div class="w3-container w3-border-bottom "
+      style="display: flex; flex-direction:column;padding:5px;">
+      <div class="w3-container" style="display: flex;flex-direction:row; gap:10px">
+          <div class="image" style="width: 10%;"><img src="" alt="image"
+                  style="height: 10px; width:10px;"></div>
+          <div class="name"><span style="font-weight: bold;">John Smith</span> <span
+                  class="w3-small w3-text-grey">Last Sunday</span></div>
+      </div>
+      <div class="w3-container " style="display: flex;flex-direction:row; gap:10px">
+          <div class="image" style="width: 10%;"></div>
+          <div class="">The comment of the John Smith here</div>
+      </div>      
+  </div>
+   <!-- for each loop end -->
+
+    <!-- for each loop start -->
+    <div class="w3-container w3-border-bottom "
+    style="display: flex; flex-direction:column;padding:5px;">
+    <div class="w3-container" style="display: flex;flex-direction:row; gap:10px">
+        <div class="image" style="width: 10%;"><img src="" alt="image"
+                style="height: 10px; width:10px;"></div>
+        <div class="name"><span style="font-weight: bold;">John Smith</span> <span
+                class="w3-small w3-text-grey">Last Sunday</span></div>
+    </div>
+    <div class="w3-container " style="display: flex;flex-direction:row; gap:10px">
+        <div class="image" style="width: 10%;"></div>
+        <div class="">The comment of the John Smith here</div>
+    </div>      
+</div>
+ <!-- for each loop end -->
+
+  <!-- for each loop start -->
+  <div class="w3-container w3-border-bottom "
+  style="display: flex; flex-direction:column;padding:5px;">
+  <div class="w3-container" style="display: flex;flex-direction:row; gap:10px">
+      <div class="image" style="width: 10%;"><img src="" alt="image"
+              style="height: 10px; width:10px;"></div>
+      <div class="name"><span style="font-weight: bold;">John Smith</span> <span
+              class="w3-small w3-text-grey">Last Sunday</span></div>
+  </div>
+  <div class="w3-container " style="display: flex;flex-direction:row; gap:10px">
+      <div class="image" style="width: 10%;"></div>
+      <div class="">The comment of the John Smith here</div>
+  </div>      
+</div>
+<!-- for each loop end -->
+
+<!-- for each loop start -->
+<div class="w3-container w3-border-bottom "
+style="display: flex; flex-direction:column;padding:5px;">
+<div class="w3-container" style="display: flex;flex-direction:row; gap:10px">
+    <div class="image" style="width: 10%;"><img src="" alt="image"
+            style="height: 10px; width:10px;"></div>
+    <div class="name"><span style="font-weight: bold;">John Smith</span> <span
+            class="w3-small w3-text-grey">Last Sunday</span></div>
+</div>
+<div class="w3-container " style="display: flex;flex-direction:row; gap:10px">
+    <div class="image" style="width: 10%;"></div>
+    <div class="">The comment of the John Smith here</div>
+</div>      
+</div>
+<!-- for each loop end -->
+
+<!-- for each loop start -->
+<div class="w3-container w3-border-bottom "
+style="display: flex; flex-direction:column;padding:5px;">
+<div class="w3-container" style="display: flex;flex-direction:row; gap:10px">
+  <div class="image" style="width: 10%;"><img src="" alt="image"
+          style="height: 10px; width:10px;"></div>
+  <div class="name"><span style="font-weight: bold;">John Smith</span> <span
+          class="w3-small w3-text-grey">Last Sunday</span></div>
+</div>
+<div class="w3-container " style="display: flex;flex-direction:row; gap:10px">
+  <div class="image" style="width: 10%;"></div>
+  <div class="">The comment of the John Smith here</div>
+</div>      
+</div>
+<!-- for each loop end -->
+
+<!-- for each loop start -->
+<div class="w3-container w3-border-bottom "
+style="display: flex; flex-direction:column;padding:5px;">
+<div class="w3-container" style="display: flex;flex-direction:row; gap:10px">
+<div class="image" style="width: 10%;"><img src="" alt="image"
+        style="height: 10px; width:10px;"></div>
+<div class="name"><span style="font-weight: bold;">John Smith</span> <span
+        class="w3-small w3-text-grey">Last Sunday</span></div>
+</div>
+<div class="w3-container " style="display: flex;flex-direction:row; gap:10px">
+<div class="image" style="width: 10%;"></div>
+<div class="">The comment of the John Smith here</div>
+</div>      
+</div>
+<!-- for each loop end -->
+         
+        </div>
+        </div>
+    <!-- </div> -->
+
+    <!-- <div class="w3-card-4 w3-margin w3-padding w3-animate-zoom" style="height: 95vh; position:relative"> -->
+        <!-- <div class=" w3-container w3-card-4 w3-container w3-margin-top w3-animate-opacity w3-round w3-padding"
+            style="width:80%;height:85vh; margin:auto"> -->
+            
+        <!-- </div> -->
+       
+    </div>
+</body>
+</html>

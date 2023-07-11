@@ -1,5 +1,6 @@
 const db = require('../Model/dbConnection')
 const Blog=db.blogs
+const { QueryTypes } = require('sequelize')
 
 
 exports.renderCreateBlog=(req,res)=>{
@@ -19,6 +20,18 @@ exports.createBlog=async (req,res)=>{
         res.redirect("/blog")
     }
 }
+
+exports.renderSingleBlog=async (req,res)=>{
+    console.log(req.params.blogId)
+    const [blog]=await db.sequelize.query('SELECT * FROM blogs JOIN users ON blogs.userId=users.id WHERE blogs.id=?',{
+        type:QueryTypes.SELECT,
+        replacements:[req.params.blogId]
+    })
+    console.log(blog)
+
+    res.render('blog.ejs',{blog:blog})
+}
+
 
 exports.renderMyBlogs=async (req,res)=>{
     const myBlogs=await Blog.findAll({where:{

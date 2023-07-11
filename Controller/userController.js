@@ -8,7 +8,7 @@ const Blog=db.blogs
 
 exports.renderHome=async (req,res)=>{
     const message=req.flash()
-    const allBLogs=await db.sequelize.query('SELECT * FROM blogs JOIN users ON blogs.userId=users.id',{
+    const allBLogs=await db.sequelize.query('SELECT blogs.id,blogs.title,blogs.description,blogs.image,blogs.createdAt,users.fullname FROM blogs JOIN users ON blogs.userId=users.id',{
         type:QueryTypes.SELECT,
     })
 
