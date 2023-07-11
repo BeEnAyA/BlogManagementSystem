@@ -11,48 +11,39 @@
             <%-include('partials/flashMsg') %>
                 <div class="w3-row-padding w3-margin-bottom" style="margin-top:50px">
                     <% blogs.forEach(blog=> { %>
-                        <div class="w3-col s4 l6 w3-margin-top">
-                            <div class="w3-card w3-white w3-round w3-animate-zoom w3-border">
-                                <div class="w3-container">
-                                    <div class="w3-container w3-center">
-                                        <label style="font-size: 20px; font-weight: bold">
-                                            <%=blog.title %>
-                                        </label>
-                                    </div>
-                                    <div class="w3-container w3-padding w3-center w3-border-bottom"
-                                        style="height: 170px;">
-                                        <img src=<%=blog.image %> style="height:150px;">
-                                    </div>
-                                    <div class="w3-container" style="height: 150px; overflow-y:hidden;">
-                                        <p>
-                                            <%= blog.description %>
-                                        </p>
-                                    </div>
+                        <div class="w3-col s4 l6 w3-margin-top w3-animate-zoom">
+                            <a href="/blog/single/<%=blog.id%>" style="text-decoration:none;">
+                                <div class="w3-card w3-white w3-round w3-border">
+                                    <div class="w3-container">
+                                        <div class="w3-container w3-center">
+                                            <label style="font-size: 20px; font-weight: bold">
+                                                <%=blog.title %>
+                                            </label>
+                                        </div>
+                                        <div class="w3-container w3-padding w3-center w3-border-bottom"
+                                            style="height: 170px;">
+                                            <img src=<%=blog.image %> style="height:150px;">
+                                        </div>
+                                        <div class="w3-container" style="height: 150px; overflow-y:hidden;">
+                                            <p>
+                                                <%= blog.description %>
+                                            </p>
+                                        </div>
 
-                                    <div class="w3-container w3-border-top w3-padding">
-                                        <label class="w3-text-grey w3-small">Created At:
-                                            <%=moment(blog.createdAt).format('MMMM Do YYYY, dddd') %>
-                                        </label><br>
-                                        <label class="w3-text-grey w3-small">Posted By:
-                                            <%=blog.fullname%>
-                                        </label>
-
-                                        <a href="/blog/single/<%=blog.id%>"
-                                            class="w3-right w3-text-green" style="text-decoration:none;">Read full... <i
-                                                class="fa-solid fa-eye-open w3-large"></i></a>
+                                        <div class="w3-container w3-border-top w3-padding">
+                                            <label class="w3-text-grey w3-small">Created At:
+                                                <%=moment(blog.createdAt).format('MMMM Do YYYY, dddd') %>
+                                            </label><br>
+                                            <label class="w3-text-grey w3-small">Posted By:
+                                                <%=blog.fullname%>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-                        <!-- Modal for Comments start -->
-                        <!-- Modal for Comments End -->
-                <% }) %>
+                        <% }) %>
+                </div>
         </div>
-        </div>
-
-
-
-
 </body>
-
 </html>

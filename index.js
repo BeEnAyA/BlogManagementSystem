@@ -60,7 +60,7 @@ app.get('/editBlog/:id',authController.isAuthenticated,blogController.renderEdit
 app.post('/updateBlog/:id',authController.isAuthenticated,upload.single('image'),blogController.updateBlog)
 app.get('/deleteBlog/:id',authController.isAuthenticated,blogController.deleteBlog)
 app.get('/myBlogs/single/:id',authController.isAuthenticated,blogController.renderMySingleBlog)
-app.get('/comments/:blogId',authController.isAuthenticated,commentController.renderComments)
-// app.post('/comments/:blogId',authController.isAuthenticated,commentController.createComment)
+// app.post('/comment/:blogId',authController.isAuthenticated,commentController.renderComments)
+app.post('/comment/:blogId',authController.isAuthenticated,commentController.createComment)
 
 app.get('/blog/single/:blogId',authController.isAuthenticated,blogController.renderSingleBlog)

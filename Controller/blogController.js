@@ -1,5 +1,7 @@
+
 const db = require('../Model/dbConnection')
 const Blog=db.blogs
+const Comment=db.comments
 const { QueryTypes } = require('sequelize')
 
 
@@ -22,14 +24,30 @@ exports.createBlog=async (req,res)=>{
 }
 
 exports.renderSingleBlog=async (req,res)=>{
-    console.log(req.params.blogId)
-    const [blog]=await db.sequelize.query('SELECT * FROM blogs JOIN users ON blogs.userId=users.id WHERE blogs.id=?',{
+    //Query to fetch the single blog along with the details of the blog writer
+    const [blog]=await db.sequelize.query('SELECT blogs.id,blogs.title,blogs.description,blogs.createdAt,blogs.image,users.fullname FROM blogs JOIN users ON blogs.userId=users.id WHERE blogs.id=?',{
         type:QueryTypes.SELECT,
         replacements:[req.params.blogId]
     })
-    console.log(blog)
 
-    res.render('blog.ejs',{blog:blog})
+    //Query to fetch the details of comments that is to be passed while rendering single blog
+    // 
+    const comments = await db.sequelize.query(
+        'SELECT comments.comment, comments.createdAt, users.fullname, users.image FROM comments JOIN users ON comments.userId = users.id WHERE blogId = ?',
+        {
+          type: QueryTypes.SELECT,
+          replacements: [req.params.blogId],
+        }
+      );
+
+      const [commentCount]=await db.sequelize.query('SELECT COUNT(comments.id) AS commentCount FROM comments WHERE blogId = ?',{
+        type:QueryTypes.SELECT,
+        replacements:[req.params.blogId],
+        rew:true
+      })
+
+
+    res.render('blog.ejs',{blog:blog,comments:comments,count:commentCount})
 }
 
 
@@ -62,7 +80,6 @@ exports.updateBlog=async (req,res)=>{
             id:req.params.id
         }
     })
-
     res.redirect('/myBlogs')
 }
 
@@ -72,7 +89,6 @@ exports.deleteBlog= async (req,res)=>{
             id:req.params.id
         }
     })
-
     res.redirect('/myBlogs')
 }
 
