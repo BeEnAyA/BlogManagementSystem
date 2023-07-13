@@ -15,7 +15,7 @@ exports.renderHome = async (req, res) => {
     }
   );
 
-  res.render("home", { msg: message, blogs: allBLogs, activePage: "blogs" });
+  res.render("home", { msg: message, blogs: allBLogs, activePage: "blogs",user:req.user });
 };
 
 exports.renderRegistration = async (req, res) => {
@@ -80,7 +80,6 @@ exports.makeLogin = async (req, res) => {
       req.flash("success", "Welcome " + foundUser[0].fullname);
       res.redirect("/blog");
     } else {
-      console.log("Login failed.");
       res.redirect("/login");
     }
   }
@@ -131,16 +130,20 @@ exports.resetPassword = async (req, res) => {
   if (verifiedOTP.length != 0) {
     verifiedOTP[0].password = encPassword;
     verifiedOTP[0].otp = null;
-    verifiedOTP[0].save();
-    res.redirect("/login");
+    verifiedOTP[0].save()
+    res.redirect("/login")
     console.log("Password Changed Successfully.");
   } else {
     res.render("resetPassword");
   }
 };
 
+exports.renderAccountSetting=async(req,res)=>{
+  res.render('userProfile');
+}
+
 exports.makeLogout = (req, res) => {
-  res.clearCookie("token");
-  req.flash("success", "Logged out successfully!");
-  res.redirect("/");
+  res.clearCookie("token")
+  req.flash("success", "Logged out successfully!")
+  res.redirect("/")
 };

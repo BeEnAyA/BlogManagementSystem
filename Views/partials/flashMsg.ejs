@@ -1,5 +1,5 @@
 <% if (msg.success) { %>
-    <div id="successMessage" class="w3-panel w3-pale-green w3-display-container w3-round w3-animate-top w3-right" style="width:fit-content; padding:0px 8px;">
+    <div id="successMessage" class="w3-panel w3-pale-green w3-display-container w3-round w3-animate-top" style="position:fixed; top:50px; left:50%; transform:translateX(-50%);width:fit-content; padding:0px 8px;z-index:9999">
         <p class=" w3-padding-left w3-normal">
             <i class="fa-solid fa-right-to-bracket"></i> <%=msg.success %>
         </p>

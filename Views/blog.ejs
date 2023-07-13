@@ -6,6 +6,7 @@
 <script src="https://kit.fontawesome.com/2d2642681e.js" crossorigin="anonymous"></script>
 
 <body>
+    <%- include('partials/navbar') %>
     <div class="w3-container w3-margin">
         <div class="w3-container w3-white w3-round w3-animate-zoom w3-border w3-border-amber"
             style="width: 80%; margin:auto">
@@ -33,7 +34,7 @@
                     </label>
                 </div>
             </div>
-            <div class="w3-container w3-center w3-border-top w3-border-amber">
+            <div id="comments" class="w3-container w3-center w3-border-top w3-border-amber">
                 <h2 class="w3-xlarge"><i class="fa-solid fa-comments w3-large"></i>  <%=count.commentCount%> Comments</h2>
             </div>
             <form action="/comment/<%= blog.id %>" method="post">
@@ -52,12 +53,19 @@
                     <div class="w3-container" style="display: flex;flex-direction:row; gap:10px">
                         <div class="image" style="width: 5%;"><img src="<%=comment.image%>" alt="image"
                                 style="height: 50px; width:50px;"></div>
-                        <div class="name" style="display: inline;">
+                        <div class="name">
                             <span style="font-weight: bold;"><%= comment.fullname %></span>   
                             <span class="w3-small w3-text-grey"><%= moment(comment.createdAt).calendar() %></span><br>
                             <span><%= comment.comment %></span>
-                        </div>          
+                           
+                        </div> 
+                              
                     </div>
+                        <div class="w3-container">
+                            <a href="/comment/delete/<%= blog.id %>/<%= comment.id %>" class="w3-button w3-text-red w3-right w3-small w3-hover-red w3-hover-text-white w3-round <%= (comment.userId!=loggedUser)?"w3-disabled":""%>"><i class="fa-solid fa-trash"></i> Delete</a>
+                            <a href="/comment/edit/<%= blog.id %>/<%= comment.id %>" class="w3-button w3-text-blue w3-right w3-small w3-hover-blue w3-hover-text-white w3-round <%= (comment.userId!=loggedUser)?"w3-disabled":""%>"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                        </div>
+                     
                 </div>
                 <% }) %>
             </div>
