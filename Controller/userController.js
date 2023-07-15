@@ -15,7 +15,7 @@ exports.renderHome = async (req, res) => {
     }
   );
 
-  res.render("home", { msg: message, blogs: allBLogs, activePage: "blogs",user:req.user });
+  res.render("home", { msg: message, blogs: allBLogs, activePage: "blogs", user:req.user });
 };
 
 exports.renderRegistration = async (req, res) => {
@@ -139,7 +139,63 @@ exports.resetPassword = async (req, res) => {
 };
 
 exports.renderAccountSetting=async(req,res)=>{
-  res.render('userProfile');
+  const message=req.flash()
+  res.render('accountSetting',{msg:message});
+}
+
+
+exports.changePassword=async (req,res)=>{
+  const oldPassword=req.body.oldPassword
+  const newPassword=req.body.newPassword
+  const rePassword=req.body.rePassword
+
+  if(oldPassword==="" && newPassword!=rePassword){
+    res.redirect('/changePassword')
+    return;
+  }
+
+  if(bcrypt.compareSync(oldPassword, req.user.password)){
+    await User.update({
+      password:bcrypt.hashSync(newPassword,10)
+    },{
+      where:{
+        id:req.user.id
+      }
+    })
+    req.flash('success','Password changed successfully!')
+    res.redirect('/blog')
+  }else{
+    req.flash('failure',"Old password doesn't match !")
+    res.redirect('/changePassword')
+  }
+
+}
+
+exports.viewProfile= async (req,res)=>{
+  res.render('userProfile',{user:req.user})
+}
+exports.editProfile= async (req,res)=>{
+  res.render('editProfile',{user:req.user})
+}
+
+exports.updateProfile=async (req,res)=>{
+  const userData={
+    fullname:req.body.fullname,
+    address:req.body.address,
+    phone:req.body.phone,
+  }
+
+  if(req.file){
+    userData.image=req.file.filename
+  }
+
+  await User.update(userData,{
+    where:{
+      id:req.user.id
+    }
+  })
+
+   res.redirect('/viewProfile')
 }
 
 exports.makeLogout = (req, res) => {

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<title>Change-Password</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+  <%- include('partials/flashMsg') %>
+  <div class="w3-container">
+    <div class="w3-modal-content w3-animate-zoom w3-card-4 w3-padding w3-round" style="width: 40%; margin-top: 80px"">
+        <header class=" w3-container w3-border-bottom w3-border-amber w3-center">
+      <h2>Change Password</h2>
+      </header>
+      <div class="w3-container w3-padding">
+        <form action="/changePassword" method="POST">
+          <div class="w3-container w3-padding">
+            <label><i class="fa-solid fa-envelope"></i> Old Password</label>
+            <input class="w3-input" id="password" type="password" name="oldPassword" required />
+          </div>
+
+          <div class="w3-container w3-padding">
+            <label><i class="fa-solid fa-key"></i> New Password</label>
+            <input id="new-password" class="w3-input" type="password" name="newPassword" required />
+          </div>
+          <div class="w3-container w3-padding">
+            <label><i class="fa-solid fa-key"></i> Re-type Password</label>
+            <input id="re-password" class="w3-input" type="password" name="rePassword" required />
+            <p id="error-message" class="w3-text-red w3-hide">Passwords do not match</p>
+          </div>
+          <div class="w3-container w3-padding">
+            <input class="w3-check" type="checkbox" onclick="passwordVisibility()" />
+            <label for="check"> Show password</label>
+          </div>
+
+
+
+          <div class="w3-container w3-center">
+            <button type="submit" class="w3-button w3-amber w3-round w3-margin-top w3-block w3-hover-black" required>
+              Change Password
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    function passwordVisibility() {
+      let x = document.getElementsByClassName("w3-input");
+      for (i = 0; i <= x.length; i++) {
+        let field = x[i]
+        if (field.type === "password") {
+          field.type = "text";
+        } else {
+          field.type = "password";
+        }
+      }
+    }
+
+    document.getElementById("re-password").addEventListener("input", function () {
+      const newPassword = document.getElementById("new-password").value;
+      const retypePassword = document.getElementById("re-password").value;
+      const errorMessage = document.getElementById("error-message");
+
+      if (newPassword !== retypePassword) {
+        errorMessage.classList.remove("w3-hide");
+      } else {
+        errorMessage.classList.add("w3-hide");
+      }
+    });
+  </script>
+
+
+</body>
+
+</html>
