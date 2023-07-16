@@ -38,7 +38,7 @@ const blogUpload=multer({storage:blogStorage})
 dotenv.config()
 
 app.listen(process.env.PORT, () => {
-  console.log("Node server started at port=localhost:4500");
+  console.log("Node server started at port: http://localhost:4500");
 })
 
 app.locals.moment = moment; // Now moment can be used in any ejs file of the project
@@ -69,3 +69,5 @@ app.post('/changePassword',authController.isAuthenticated,controller.changePassw
 app.get('/viewProfile',authController.isAuthenticated,controller.viewProfile)
 app.get('/editProfile',authController.isAuthenticated,controller.editProfile)
 app.post('/editProfile',authController.isAuthenticated,upload.single('image'),controller.updateProfile)
+app.get('/blog/readAloud/:blogId',authController.isAuthenticated,blogController.readBlog)
+app.get('/blog/stopRead/:blogId',authController.isAuthenticated,blogController.stopRead)

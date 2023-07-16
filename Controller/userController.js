@@ -186,7 +186,7 @@ exports.updateProfile=async (req,res)=>{
   }
 
   if(req.file){
-    userData.image=req.file.filename
+    userData.image="http://localhost:4500/"+req.file.filename
   }
 
   await User.update(userData,{

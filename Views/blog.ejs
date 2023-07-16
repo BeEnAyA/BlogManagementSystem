@@ -20,6 +20,16 @@
                     <img class="w3-bottombar w3-leftbar w3-border-grey w3-round" src=<%=blog.image %>
                     style="height:250px;">
                 </div>
+                <div  class="w3-container w3-padding w3-center">
+                    <% if (!isSpeaking) { %>
+                        <a href="/blog/readAloud/<%= blog.id %>" class="w3-button w3-green w3-round"><i class="fa-solid fa-volume-high fa-beat"></i> Read Aloud</a>
+     
+                    <% } %>
+                    <% if (isSpeaking) { %>
+                        <a href="/blog/stopRead/<%= blog.id %>" class="w3-button w3-red w3-round"><i class="fa-solid fa-volume-xmark fa-beat"></i> Stop</a>
+    
+                    <% } %>
+                </div>
                 <div class="w3-container" style="overflow-y:hidden;">
                     <p>
                         <%= blog.description %>
@@ -61,10 +71,12 @@
                         </div> 
                               
                     </div>
+                    <% if(comment.userId==loggedUser){%>
                         <div class="w3-container">
-                            <a href="/comment/delete/<%= blog.id %>/<%= comment.id %>" class="w3-button w3-text-red w3-right w3-small w3-hover-red w3-hover-text-white w3-round <%= (comment.userId!=loggedUser)?"w3-disabled":""%>"><i class="fa-solid fa-trash"></i> Delete</a>
-                            <a href="/comment/edit/<%= blog.id %>/<%= comment.id %>" class="w3-button w3-text-blue w3-right w3-small w3-hover-blue w3-hover-text-white w3-round <%= (comment.userId!=loggedUser)?"w3-disabled":""%>"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                           <a href="/comment/delete/<%= blog.id %>/<%= comment.id %>" class="w3-button w3-text-red w3-right w3-small w3-hover-red w3-hover-text-white w3-round"><i class="fa-solid fa-trash"></i> Delete</a>
+                        <a href="/comment/edit/<%= blog.id %>/<%= comment.id %>" class="w3-button w3-text-blue w3-right w3-small w3-hover-blue w3-hover-text-white w3-round"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                         </div>
+                        <% } %>
                      
                 </div>
                 <% }) %>

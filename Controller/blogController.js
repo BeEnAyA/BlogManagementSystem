@@ -3,6 +3,8 @@ const db = require('../Model/dbConnection')
 const Blog=db.blogs
 const Comment=db.comments
 const { QueryTypes } = require('sequelize')
+const say = require('say');
+let isSpeaking=false
 
 
 exports.renderCreateBlog=(req,res)=>{
@@ -46,7 +48,7 @@ exports.renderSingleBlog=async (req,res)=>{
         rew:true
       })
     const loggedUser=req.user.id
-    res.render('blog.ejs',{blog:blog,comments:comments,count:commentCount,activePage:'blogs',loggedUser:loggedUser,user:req.user})
+    res.render('blog.ejs',{blog:blog,comments:comments,count:commentCount,activePage:'blogs',loggedUser:loggedUser,user:req.user,isSpeaking})
 }
 
 
@@ -99,3 +101,39 @@ exports.renderMySingleBlog= async (req,res)=>{
     })
     res.render('myBlog-single',{activePage:'myBlogs',myBlog:myBlog,user:req.user})
 }
+
+exports.readBlog = async (req, res) => {
+    if (isSpeaking) {
+      return res.redirect('/blog/single/' + req.params.blogId);
+    }
+  
+    const blog = await Blog.findOne({
+      where: {
+        id: req.params.blogId,
+      },
+    });
+  
+    if (!blog) {
+      return res.redirect('/blog/single/' + req.params.blogId);
+    }
+  
+    const text = blog.description;
+    console.log("Hello working")
+  
+    say.speak(text, 'Alex', (error) => {
+      if (error) {
+        console.error('Error while speaking:', error);
+      } else {
+        console.log('Speech complete'); 
+      }
+    });
+  
+    isSpeaking = true;
+    res.redirect('/blog/single/' + req.params.blogId);
+  };
+
+  exports.stopRead = (req, res) => {
+    say.stop();
+    isSpeaking = false;
+    res.redirect('/blog/single/' + req.params.blogId);
+  };
