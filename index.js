@@ -43,6 +43,9 @@ app.listen(process.env.PORT, () => {
 
 app.locals.moment = moment; // Now moment can be used in any ejs file of the project
 
+//Rest Api
+app.get('/test', controller.TestApi);
+
 app.get("/", controller.renderLogin)
 app.get("/blog",authController.isAuthenticated, controller.renderHome)
 app.get("/register", controller.renderRegistration)

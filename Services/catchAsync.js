@@ -2,7 +2,9 @@
 module.exports = (fn) => {
     return (req, res, next) => {
       fn(req, res, next).catch((err) => {
-        return res.render('error')
+        return res.status(404).send({
+          message:"Error"
+        })
         });
       }
     };

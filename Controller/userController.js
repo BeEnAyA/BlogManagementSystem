@@ -15,8 +15,35 @@ exports.renderHome = async (req, res) => {
     }
   );
 
-  res.render("home", { msg: message, blogs: allBLogs, activePage: "blogs", user:req.user });
+  res.render("home", {
+    msg: message,
+    blogs: allBLogs,
+    activePage: "blogs",
+    user: req.user,
+  });
 };
+
+exports.TestApi = async (req, res) => {
+  const allBLogs = await db.sequelize.query(
+    "SELECT blogs.id,blogs.title,blogs.description,blogs.image,blogs.createdAt,users.fullname FROM blogs JOIN users ON blogs.userId=users.id",
+    {
+      type: QueryTypes.SELECT,
+    }
+  );
+
+  // if(!req.body.name){
+  //   return res.status(400).send({
+  //     // data: allBLogs,
+  //     message: 'error',
+  //   });
+  // }
+
+  
+  res.status(200).send({
+    data: allBLogs,
+    message: 'Success',
+  });
+}
 
 exports.renderRegistration = async (req, res) => {
   res.render("registration");
@@ -91,6 +118,7 @@ exports.renderVerifyEmail = async (req, res) => {
 
 exports.sendOTP = async (req, res) => {
   const email = req.body.email;
+  // res.send(req.body)
   const foundEmail = await User.findAll({
     where: {
       email: email,
@@ -98,7 +126,7 @@ exports.sendOTP = async (req, res) => {
   });
 
   if (foundEmail.length != 0) {
-    const OTP = Math.floor(10000 + Math.random() * 90000);
+    const OTP = Math.floor(10000 + Math.random() * 900000);
     try {
       const options = {
         to: email,
@@ -130,76 +158,77 @@ exports.resetPassword = async (req, res) => {
   if (verifiedOTP.length != 0) {
     verifiedOTP[0].password = encPassword;
     verifiedOTP[0].otp = null;
-    verifiedOTP[0].save()
-    res.redirect("/login")
+    verifiedOTP[0].save();
+    res.redirect("/login");
     console.log("Password Changed Successfully.");
   } else {
     res.render("resetPassword");
   }
 };
 
-exports.renderAccountSetting=async(req,res)=>{
-  const message=req.flash()
-  res.render('accountSetting',{msg:message});
-}
+exports.renderAccountSetting = async (req, res) => {
+  const message = req.flash();
+  res.render("accountSetting", { msg: message });
+};
 
+exports.changePassword = async (req, res) => {
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+  const rePassword = req.body.rePassword;
 
-exports.changePassword=async (req,res)=>{
-  const oldPassword=req.body.oldPassword
-  const newPassword=req.body.newPassword
-  const rePassword=req.body.rePassword
-
-  if(oldPassword==="" && newPassword!=rePassword){
-    res.redirect('/changePassword')
+  if (oldPassword === "" && newPassword != rePassword) {
+    res.redirect("/changePassword");
     return;
   }
 
-  if(bcrypt.compareSync(oldPassword, req.user.password)){
-    await User.update({
-      password:bcrypt.hashSync(newPassword,10)
-    },{
-      where:{
-        id:req.user.id
+  if (bcrypt.compareSync(oldPassword, req.user.password)) {
+    await User.update(
+      {
+        password: bcrypt.hashSync(newPassword, 10),
+      },
+      {
+        where: {
+          id: req.user.id,
+        },
       }
-    })
-    req.flash('success','Password changed successfully!')
-    res.redirect('/blog')
-  }else{
-    req.flash('failure',"Old password doesn't match !")
-    res.redirect('/changePassword')
+    );
+    req.flash("success", "Password changed successfully!");
+    res.redirect("/blog");
+  } else {
+    req.flash("failure", "Old password doesn't match !");
+    res.redirect("/changePassword");
+  }
+};
+
+exports.viewProfile = async (req, res) => {
+  res.render("userProfile", { user: req.user });
+};
+exports.editProfile = async (req, res) => {
+  res.render("editProfile", { user: req.user });
+};
+
+exports.updateProfile = async (req, res) => {
+  const userData = {
+    fullname: req.body.fullname,
+    address: req.body.address,
+    phone: req.body.phone,
+  };
+
+  if (req.file) {
+    userData.image = "http://localhost:4500/" + req.file.filename;
   }
 
-}
+  await User.update(userData, {
+    where: {
+      id: req.user.id,
+    },
+  });
 
-exports.viewProfile= async (req,res)=>{
-  res.render('userProfile',{user:req.user})
-}
-exports.editProfile= async (req,res)=>{
-  res.render('editProfile',{user:req.user})
-}
-
-exports.updateProfile=async (req,res)=>{
-  const userData={
-    fullname:req.body.fullname,
-    address:req.body.address,
-    phone:req.body.phone,
-  }
-
-  if(req.file){
-    userData.image="http://localhost:4500/"+req.file.filename
-  }
-
-  await User.update(userData,{
-    where:{
-      id:req.user.id
-    }
-  })
-
-   res.redirect('/viewProfile')
-}
+  res.redirect("/viewProfile");
+};
 
 exports.makeLogout = (req, res) => {
-  res.clearCookie("token")
-  req.flash("success", "Logged out successfully!")
-  res.redirect("/")
+  res.clearCookie("token");
+  req.flash("success", "Logged out successfully!");
+  res.redirect("/");
 };
